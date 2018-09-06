@@ -7,14 +7,17 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public class AssignmentOne {
+public class AssignmentOne extends PrimeFinder {
 
-    // PrimeFinder pf = new PrimeFinder();
+    // Create a PrimeFinder
+    PrimeFinder pf = new PrimeFinder();
 
-    // public static List<Integer> lprimes(List<Integer[]> intervals) {
-    //     // TODO
-    // }
+    // Call PrimeFinder methods
+    public static List<Integer> lprimes(List<Integer[]> intervals) {
+        // TODO
+    }
 
+    // Main method -> deal with arguments, create list of intervals, pass them to lprimes
     public static void main(String[] args) {
         // Parse command line args
         int val1;
@@ -26,7 +29,7 @@ public class AssignmentOne {
             val2 = Integer.parseInt(args[i+1]);
             twoInts[0] = val1;
             twoInts[1] = val2;
-            listOfArrays.add(twoInts);
+            listOfArrays.add(twoInts); // Wrong
         }
         // for (int i = 0; i < listOfArrays.size(); i++) {
         //     System.out.println(listOfArrays[i]);

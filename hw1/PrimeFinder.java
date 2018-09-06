@@ -1,16 +1,13 @@
-
-
-
-
-
 public class PrimeFinder implements Runnable {
 
     private Integer start;
     private Integer end;
     private List<Integer> primes;
 
+    // Constructs a PrimeFinder
     PrimeFinder(Integer startNum, Integer endNum) {
-        // Constructs a PrimeFinder
+        start = startNum;
+        end = endNum;
     }
 
     public List<Integer> getPrimesList() {
