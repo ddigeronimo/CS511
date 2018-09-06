@@ -19,12 +19,13 @@ public class PrimeFinder implements Runnable {
         end = endNum;
     }
 
+    // Returns the value of the attribute primes
     public List<Integer> getPrimesList() {
-        // Returns the value of the attribute primes
+        return primes;
     }
 
+    // Determines whether its argument is prime or not, based on AKS algorithm
     public Boolean isPrime(int n) {
-        // Determines whether its argument is prime or not, based on AKS algorithm
         if (n == 2) {
             return false;
         }
