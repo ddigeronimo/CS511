@@ -52,8 +52,17 @@ public class PrimeFinder implements Runnable {
         return true;
     }
 
+    // Adds all primes in [this.start, this.end] to the attribute primes
     public void run() {
-        // Adds all primes in [this.start, this.end] to the attribute primes
+        Integer i = start;
+        while(i != end) {
+            if (isPrime(i)) { // Will there be type issues, since isPrime takes an int?
+                // Add i to primes
+                i++;
+            } else {
+                i++;
+            }
+        }
     }
 
 
