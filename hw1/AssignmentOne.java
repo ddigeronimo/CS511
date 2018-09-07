@@ -13,9 +13,9 @@ public class AssignmentOne {
     // PrimeFinder pf = new PrimeFinder();
 
     // Call PrimeFinder methods to generate the list of primes, uses threads
-    // public static List<Integer> lprimes(List<Integer[]> intervals) {
-    //     // TODO
-    // }
+    public static List<Integer> lprimes(List<Integer[]> intervals) {
+        
+    }
 
     // Main method -> deal with arguments, create list of intervals, pass them to lprimes
     public static void main(String[] args) {
@@ -43,18 +43,18 @@ public class AssignmentOne {
             // Add vals to interval array
             interval[0] = val1;
             interval[1] = val2;
-
-            // Test printouts
-            // System.out.print("[ ");
-            // System.out.print(Integer.toString(interval[0]));
-            // System.out.print(", ");
-            // System.out.print(Integer.toString(interval[1]));
-            // System.out.println(" ]");
-
             // Add interval array to list
             listOfIntervals.add(interval);
         }
-        // Call lprimes
+        // Hand intervals off to lprimes and print the results
+        List<Integer> results = lprimes(listOfIntervals);
+        System.out.print("[ ");
+        for (int i = 0; i < results.length-2; i++) {
+            System.out.print(results[i]);
+            System.out.print(", ");
+        }
+        System.out.print(results[results.length-1]); // Print last element without a comma
+        System.out.println(" ]");
     }
 }
 
