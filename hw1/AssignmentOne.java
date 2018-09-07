@@ -30,11 +30,11 @@ public class AssignmentOne {
         Integer[] interval = new Integer[2];
         List<Integer[]> listOfIntervals = new ArrayList<Integer[]>();
         // Iterate through args and set them to variables
-        for (int i = 0; i < args.length; i+=2) {
+        for (int i = 0; i < args.length-1; i++) {
             val1 = Integer.parseInt(args[i]);
             val2 = Integer.parseInt(args[i+1]);
             // Check that integers are both in order and greater than 1
-            if (val1 >= val2 || previousVal2 >= val1) {
+            if (val1 >= val2 || previousVal2 > val1) {
                 System.out.println("Numbers must be in ascending order and greater than 1.");
                 System.exit(0);
             }
@@ -43,6 +43,14 @@ public class AssignmentOne {
             // Add vals to interval array
             interval[0] = val1;
             interval[1] = val2;
+
+            // Test printouts
+            // System.out.print("[ ");
+            // System.out.print(Integer.toString(interval[0]));
+            // System.out.print(", ");
+            // System.out.print(Integer.toString(interval[1]));
+            // System.out.println(" ]");
+
             // Add interval array to list
             listOfIntervals.add(interval);
         }
