@@ -55,6 +55,9 @@ public class AssignmentOne {
     // Main method -> deal with arguments, create list of intervals, pass them to lprimes
     public static void main(String[] args) {
 
+        // Create an AssignmentOne object
+        AssignmentOne a1 = new AssignmentOne();
+
         // Ensure an even amount of numbers are supplied
         if (args.length%2 != 0) {
             System.out.println("You must supply an even amount of numbers.");
@@ -88,14 +91,16 @@ public class AssignmentOne {
         }
 
         // Hand intervals off to lprimes and print the results
-        List<Integer> results = lprimes(listOfIntervals);
-        System.out.print("[ ");
-        for (int i = 0; i < results.length-2; i++) {
-            System.out.print(results[i]);
-            System.out.print(", ");
-        }
-        System.out.print(results[results.length-1]); // Print last element without a comma
-        System.out.println(" ]");
+        // List<Integer> results = lprimes(listOfIntervals);
+        // System.out.print("[ ");
+        // for (int i = 0; i < results.length-2; i++) {
+        //     System.out.print(results[i]);
+        //     System.out.print(", ");
+        // }
+        // System.out.print(results[results.length-1]); // Print last element without a comma
+        // System.out.println(" ]");
+
+        System.out.println(a1.lprimes(listOfIntervals));
     }
 }
 
