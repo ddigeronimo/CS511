@@ -14,7 +14,16 @@ public class AssignmentOne {
 
     // Call PrimeFinder methods to generate the list of primes, uses threads
     public static List<Integer> lprimes(List<Integer[]> intervals) {
-        
+        // Go through intervals, separate out each interval
+        for (int i = 0; i < intervals.length; i++) {
+            Integer[] currentInterval = new Integer[2];
+            currentInterval = intervals.get(i);
+            // Create a thread for each interval
+            Thread t = new Thread(new PrimeFinder(currentInterval[0], currentInterval[1]));
+            t.start();
+            t.join();
+            // I think this is the right start?
+        }
     }
 
     // Main method -> deal with arguments, create list of intervals, pass them to lprimes
