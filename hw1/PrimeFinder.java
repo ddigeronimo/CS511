@@ -1,5 +1,3 @@
-package hw1;
-
 /*
  * CS 511 HW 1
  * Dylan DiGeronimo and Ryan Locke
@@ -57,18 +55,12 @@ public class PrimeFinder implements Runnable {
 
     // Adds all primes in [this.start, this.end] to the attribute primes
     public void run() {
-        //Integer i = start;
-        //while(i != end) {
-    	for(int i = this.start; i<this.end; ++i){
-            if (isPrime(i)) { // Will there be type issues, since isPrime takes an int?
+        // Run all integers in interval through AKS prime algorithm
+        for (int i = this.start; i < this.end; i++) {
+            if (isPrime(i)) {
                 // Add i to primes
-            	primes.add(new Integer(i));
-                //i++;
-            } //else {
-                //i++;
+                primes.add(new Integer(i));
             }
         }
     }
-
-
-//}
+}
