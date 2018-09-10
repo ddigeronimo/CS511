@@ -1,3 +1,5 @@
+package hw1;
+
 /*
  * CS 511 HW 1
  * Dylan DiGeronimo and Ryan Locke
@@ -35,7 +37,7 @@ public class AssignmentOne {
         // Handle threads -> joining and exceptions
         for (int i = 0; i < threads.size(); i++) {
             try {
-                threads.get(i).join();
+            	threads.get(i).join();
             }
             catch (InterruptedException ie) {
                 ie.printStackTrace();
@@ -64,32 +66,44 @@ public class AssignmentOne {
             System.exit(0);
         }
 
-        Integer val1;
-        Integer val2;
-        Integer previousVal2 = 1; // Setting this to 1 ensures that the first num can't be 1
-        Integer[] interval = new Integer[2];
-        List<Integer[]> listOfIntervals = new ArrayList<Integer[]>();
+//        Integer val1;
+//        Integer val2;
+//        Integer previousVal2 = 1; // Setting this to 1 ensures that the first num can't be 1
+//        Integer[] interval = new Integer[2];
+//        List<Integer[]> listOfIntervals = new ArrayList<Integer[]>();
+//
+//        // Iterate through args and set them to variables
+//        for (int i = 0; i < args.length-1; i++) {
+//            val1 = Integer.parseInt(args[i]);
+//            val2 = Integer.parseInt(args[i+1]);
+//
+//            // Check that integers are both in order and greater than 1
+//            if (val1 >= val2 || previousVal2 > val1) {
+//                System.out.println("Numbers must be in ascending order and greater than 1.");
+//                System.exit(0);
+//            }
+//
+//            // Set previousVal2 to current val2
+//            previousVal2 = val2;
+//            // Add vals to interval array
+//            interval[0] = val1;
+//            interval[1] = val2;
+//            // Add interval array to list
+//            listOfIntervals.add(interval);
+//        }
 
-        // Iterate through args and set them to variables
-        for (int i = 0; i < args.length-1; i++) {
-            val1 = Integer.parseInt(args[i]);
-            val2 = Integer.parseInt(args[i+1]);
-
-            // Check that integers are both in order and greater than 1
-            if (val1 >= val2 || previousVal2 > val1) {
-                System.out.println("Numbers must be in ascending order and greater than 1.");
-                System.exit(0);
-            }
-
-            // Set previousVal2 to current val2
-            previousVal2 = val2;
-            // Add vals to interval array
-            interval[0] = val1;
-            interval[1] = val2;
-            // Add interval array to list
-            listOfIntervals.add(interval);
+        Integer[] toAdd;
+        List<Integer[]> intList = new ArrayList<Integer[]>();
+        AssignmentOne a = new AssignmentOne();
+        for(int i = 0; i < args.length-1; i++){
+        	toAdd = new Integer[2];
+        	toAdd[0] = Integer.valueOf(args[i]);
+        	toAdd[1] = Integer.valueOf(args[i+1]);
+        	intList.add(toAdd);
         }
-
+        
+        
+        
         // Hand intervals off to lprimes and print the results
         // List<Integer> results = lprimes(listOfIntervals);
         // System.out.print("[ ");
@@ -99,8 +113,10 @@ public class AssignmentOne {
         // }
         // System.out.print(results[results.length-1]); // Print last element without a comma
         // System.out.println(" ]");
+//
+//        System.out.println(a1.lprimes(listOfIntervals));
 
-        System.out.println(a1.lprimes(listOfIntervals));
+        System.out.println(a1.lprimes(intList));
     }
 }
 
