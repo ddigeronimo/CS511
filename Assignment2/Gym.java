@@ -1,3 +1,9 @@
+/*
+ * CS 511 HW 2
+ * Dylan DiGeronimo and Ryan Locke
+ * I pledge my honor that I have abided by the Stevens Honor System
+ */
+
 package Assignment2;
 
 public class Gym {
@@ -8,11 +14,12 @@ public class Gym {
 
     private Map<WeightPlateSize,int> noOfWeightPlates;
 
-    private Set<Integer> clinets; // For generating fresh client ids
+    private Set<Integer> clients; // For generating fresh client ids
 
     private ExecutorService executor;
 
-    // TODO: Add Semaphores
+    // TODO: More Semaphores?
+    Semaphore numApparatus = new Semaphore(0); // TODO: Should this be 0? 
    
     public void run() {
 
