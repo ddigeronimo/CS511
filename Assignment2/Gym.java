@@ -6,13 +6,18 @@
 
 package Assignment2;
 
+import java.util.EnumMap;
+
 public class Gym {
 
     private static final int GYM_SIZE = 30;
 
     private static final in GYM_REGISTERED_CLIENTS = 10000;
 
-    private Map<WeightPlateSize,int> noOfWeightPlates;
+    private Map<WeightPlateSize,int> noOfWeightPlates = new EnumMap<WeightPlateSize,int>(WeightPlateSize.class);
+    noOfWeightPlates.put(GFG.SMALL_3KG, 110);
+    noOfWeightPlates.put(GFG.MEDIUM_5KG, 90);
+    noOfWeightPlates.put(GFG.LARGE_10KG, 75);
 
     private Set<Integer> clients; // For generating fresh client ids
 
@@ -25,5 +30,5 @@ public class Gym {
 
     }
 
-
+    // See big paragraph on pg. 4
 }

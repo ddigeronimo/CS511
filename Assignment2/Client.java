@@ -14,20 +14,19 @@ public class Client {
     private List<Exercise> routine;
 
     public Client(int id) {
-	id = id; // Will this cause a problem because of the shared name?
-	routine = new List<Exercise>(); //?
+	this.id = id; 
+	this.routine = new List<Exercise>(); //?
     }
 
     public void addExercise(Exercise e) {
-
+	// Assume it adds e onto routine
     }
 
     public static Client generateRandom(int id, Map<WeightPlateSize,int> noOfWeightPlates) {
 
     }
 
-    // Does this need to be included? See pg 4 of the HW
     public static Client generateRandom(int id) {
-
+	Client c = new Client(id);
     }
 }
