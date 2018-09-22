@@ -13,7 +13,7 @@ public class Gym {
 
     private static final int GYM_SIZE = 30;
 
-    private static final in GYM_REGISTERED_CLIENTS = 10000;
+    private static final int GYM_REGISTERED_CLIENTS = 10000;
 
     private Map<WeightPlateSize,int> noOfWeightPlates = new EnumMap<WeightPlateSize,int>(WeightPlateSize.class);
     noOfWeightPlates.put(WeightPlateSize.SMALL_3KG, 110);
