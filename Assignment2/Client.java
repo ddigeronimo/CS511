@@ -22,11 +22,14 @@ public class Client {
 	// Assume it adds e onto routine
     }
 
-    public static Client generateRandom(int id, Map<WeightPlateSize,int> noOfWeightPlates) {
+    public static Client generateRandom(int id, Map<WeightPlateSize,Integer> noOfWeightPlates) {
 
     }
 
     public static Client generateRandom(int id) {
-	Client c = new Client(id);
+        Client c = new Client(id);
+        // TODO: Generate random
+        return c;
+
     }
 }

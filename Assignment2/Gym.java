@@ -6,22 +6,27 @@
 
 package Assignment2;
 
-import java.util.EnumMap;
-import java.util.concurrent;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Gym {
 
     private static final int GYM_SIZE = 30;
-
     private static final int GYM_REGISTERED_CLIENTS = 10000;
 
-    private Map<WeightPlateSize,int> noOfWeightPlates = new EnumMap<WeightPlateSize,int>(WeightPlateSize.class);
-    noOfWeightPlates.put(WeightPlateSize.SMALL_3KG, 110);
-    noOfWeightPlates.put(WeightPlateSize.MEDIUM_5KG, 90);
-    noOfWeightPlates.put(WeightPlateSize.LARGE_10KG, 75);
+    private Map<WeightPlateSize,Integer> noOfWeightPlates;
 
     // For generating fresh client ids
     private Set<Integer> clients; 
+
+    // For generating random numbers
+    private Random rand;
 
     // Thread Executor Service
     private ExecutorService executor = Executors.newFixedThreadPool(GYM_SIZE);
@@ -45,6 +50,23 @@ public class Gym {
     public Semaphore pecDeck = new Semaphore(5);
     public Semaphore cableCross = new Semaphore(5);
     
+    // Gym object, used for initializations and such
+    public Gym() {
+        // Initialize noOfWeightPlates
+        noOfWeightPlates = new HashMap<WeightPlateSize,Integer>();
+        noOfWeightPlates.put(WeightPlateSize.SMALL_3KG, 110);
+        noOfWeightPlates.put(WeightPlateSize.MEDIUM_5KG, 90);
+        noOfWeightPlates.put(WeightPlateSize.LARGE_10KG, 75);
+
+        // Initialize rand
+        rand = new Random();
+
+        // Initialize clients --> used a HashSet bc you can't just use Set
+        clients = new HashSet<Integer>();
+
+    }
+
+
     public void run() {
 	
     }
