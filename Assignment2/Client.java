@@ -7,6 +7,7 @@
 package Assignment2;
 
 import java.util.List;
+import java.util.Random;
 
 public class Client {
 
@@ -14,22 +15,34 @@ public class Client {
     private List<Exercise> routine;
 
     public Client(int id) {
-	this.id = id; 
-	this.routine = new List<Exercise>(); //?
+	    this.id = id; 
+	    this.routine = new List<Exercise>(); //?
     }
 
+    // Adds an exercise e onto the list routine
     public void addExercise(Exercise e) {
-	// Assume it adds e onto routine
+    	this.routine.add(e);
     }
 
+    // Generate a random client using a given id and amount of weight plates
     public static Client generateRandom(int id, Map<WeightPlateSize,Integer> noOfWeightPlates) {
-
-    }
-
-    public static Client generateRandom(int id) {
+        // Instantiate client
         Client c = new Client(id);
-        // TODO: Generate random
+        // Generate a random number of exercises
+        Random rand = new Random();
+        // Since the number must be within 15 and 20, we choose a random number between 0 and 5 and add it to 15
+        // This gives us the possibility of getting 15, 16, 17, 18, 9, and 20 
+        int numberOfExercises = rand.nextInt(5) + 15;
+        for (int i = 0; i < numberOfExercises; i++) {
+            c.addExercise(Exercise.generateRandom(noOfWeightPlates));
+        } 
         return c;
-
     }
+
+    // public static Client generateRandom(int id) {
+    //     Client c = new Client(id);
+    //     // TODO: Generate random
+    //     return c;
+
+    // }
 }

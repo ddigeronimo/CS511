@@ -15,7 +15,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Gym {
+public class Gym implements Runnable {
 
     private static final int GYM_SIZE = 30;
     private static final int GYM_REGISTERED_CLIENTS = 10000;
@@ -66,7 +66,7 @@ public class Gym {
 
     }
 
-
+    // TODO: This whole method 
     public void run() {
 	
     }
