@@ -8,15 +8,23 @@ package Assignment2;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Client {
 
     private int id;
     private List<Exercise> routine;
 
+    // Constructor for Client
     public Client(int id) {
 	    this.id = id; 
 	    this.routine = new List<Exercise>(); 
+    }
+
+    // Get the Client's routine
+    public routineGetter() {
+        return routine;
     }
 
     // Adds an exercise e onto the list routine

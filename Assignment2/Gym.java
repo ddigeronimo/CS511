@@ -84,16 +84,35 @@ public class Gym implements Runnable {
         // Initialize and fill clients --> used a HashSet bc you can't just use Set
         clients = new HashSet<Integer>();
         for (int i = 0; i < GYM_REGISTERED_CLIENTS; i++) {
-            clients.add(Client.generateRandom(id, noOfWeightPlates2));
+            clients.add(Client.generateRandom(id, noOfWeightPlates));
         }
 
         // Initialize executor
         executor = Executors.newFixedThreadPool(GYM_SIZE); 
     }
 
-    // TODO: This whole method 
+    // Run method, simulates gym
+    /* We use a run method inside of a run method for the following reason:
+    *  The second run method is executed by the executor, creating a new thread  
+    */
     public void run() {
-	
+        for (Client c: clients) {
+            Client current = c;
+            executor.execute(new Runnable() {
+                public void run() {
+                    for (Exercise ex : client.routineGetter()) {
+                        try {
+                            // Get the weights we need
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        // release weights
+                    }
+                }
+            });
+        }
+        // Kill executor
+        executor.shutdown();
     }
 
     // See big paragraph on pg. 4
