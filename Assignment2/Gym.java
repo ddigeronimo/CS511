@@ -21,7 +21,12 @@ public class Gym implements Runnable {
     private static final int GYM_REGISTERED_CLIENTS = 10000;
 
     // Represent the weight plate amounts with a map
-    private Map<WeightPlateSize,Integer> noOfWeightPlates;
+    private static Map<WeightPlateSize,Integer> noOfWeightPlates;
+
+    // Getter for weightPlates
+    public static Map<WeightPlateSize,Integer> numPlateGetter() {
+        return noOfWeightPlates;
+    }
 
     // Organize apparatus semaphores using a map, meaning we won't have to use big sets of if/else if statements
     private Map<ApparatusType, Semaphore> apparatusPerm;
@@ -58,7 +63,7 @@ public class Gym implements Runnable {
     public Gym() {
         // Initialize and fill noOfWeightPlates
         noOfWeightPlates = new HashMap<WeightPlateSize,Integer>();
-        noOfWeightPlates.put(WeightPlateSize.SMALL_3KG, 110);
+		noOfWeightPlates.put(WeightPlateSize.SMALL_3KG, 110);
         noOfWeightPlates.put(WeightPlateSize.MEDIUM_5KG, 90);
         noOfWeightPlates.put(WeightPlateSize.LARGE_10KG, 75);
 
@@ -76,13 +81,14 @@ public class Gym implements Runnable {
         // Initialize rand
         rand = new Random();
 
-        // Initialize clients --> used a HashSet bc you can't just use Set
+        // Initialize and fill clients --> used a HashSet bc you can't just use Set
         clients = new HashSet<Integer>();
+        for (int i = 0; i < GYM_REGISTERED_CLIENTS; i++) {
+            clients.add(Client.generateRandom(id, noOfWeightPlates2));
+        }
 
         // Initialize executor
         executor = Executors.newFixedThreadPool(GYM_SIZE); 
-
-
     }
 
     // TODO: This whole method 

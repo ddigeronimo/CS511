@@ -16,7 +16,7 @@ public class Client {
 
     public Client(int id) {
 	    this.id = id; 
-	    this.routine = new List<Exercise>(); //?
+	    this.routine = new List<Exercise>(); 
     }
 
     // Adds an exercise e onto the list routine
@@ -39,10 +39,8 @@ public class Client {
         return c;
     }
 
-    // public static Client generateRandom(int id) {
-    //     Client c = new Client(id);
-    //     // TODO: Generate random
-    //     return c;
-
-    // }
+    // If only ID is supplied, call gernerateRandom method using numPlateGetter
+    public static Client generateRandom(int id) {
+        return generateRandom(id, Gym.numPlateGetter());
+    }
 }

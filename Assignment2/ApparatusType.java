@@ -23,11 +23,11 @@ public enum ApparatusType {
 
     // Method for choosing a random apparatus type
     // NOTE: This method was found on Stack Overflow
-    private List<ApparatusType> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
-    private int SIZE = VALUES.size();
-    private Random rand = new Random();
+    private static List<ApparatusType> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
+    private static int SIZE = VALUES.size();
+    private static Random rand = new Random();
 
-    public ApparatusType randomApparatus() {
+    public static ApparatusType randomApparatus() {
         return VALUES.get(rand.nextInt(SIZE));
     }
 }
