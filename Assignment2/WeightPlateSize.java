@@ -6,10 +6,23 @@
 
 package Assignment2;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
+import java.util.List;
+
 public enum WeightPlateSize {
     SMALL_3KG,
     MEDIUM_5KG,
-    LARGE_10KG
-}
+    LARGE_10KG;
 
-// Include methods for generating a random weight plate size?
+    // Method for choosing a random apparatus type
+    // NOTE: This method was found on Stack Overflow
+    private List<WeightPlateSize> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
+    private int SIZE = VALUES.size();
+    private Random rand = new Random();
+
+    public WeightPlateSize randomWeightPlateSize() {
+        return VALUES.get(rand.nextInt(SIZE));
+    }
+}

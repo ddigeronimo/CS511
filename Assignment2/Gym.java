@@ -20,7 +20,11 @@ public class Gym implements Runnable {
     private static final int GYM_SIZE = 30;
     private static final int GYM_REGISTERED_CLIENTS = 10000;
 
+    // Represent the weight plate amounts with a map
     private Map<WeightPlateSize,Integer> noOfWeightPlates;
+
+    // Organize apparatus semaphores using a map, meaning we won't have to use big sets of if/else if statements
+    private Map<ApparatusType, Semaphore> apparatusPerm;
 
     // For generating fresh client ids
     private Set<Integer> clients; 
@@ -29,7 +33,7 @@ public class Gym implements Runnable {
     private Random rand;
 
     // Thread Executor Service
-    private ExecutorService executor = Executors.newFixedThreadPool(GYM_SIZE);
+    private ExecutorService executor;
 
     // Semaphores
     // One for access to each plate size
@@ -52,17 +56,32 @@ public class Gym implements Runnable {
     
     // Gym object, used for initializations and such
     public Gym() {
-        // Initialize noOfWeightPlates
+        // Initialize and fill noOfWeightPlates
         noOfWeightPlates = new HashMap<WeightPlateSize,Integer>();
         noOfWeightPlates.put(WeightPlateSize.SMALL_3KG, 110);
         noOfWeightPlates.put(WeightPlateSize.MEDIUM_5KG, 90);
         noOfWeightPlates.put(WeightPlateSize.LARGE_10KG, 75);
+
+        // Initialize and fill apparatusPerm
+        apparatusPerm = new HashMap<ApparatusType, Semaphore>();
+        apparatusPerm.put(ApparatusType.LEGPRESSMACHINE, legPress);
+        apparatusPerm.put(ApparatusType.BARBELL, barbell);
+        apparatusPerm.put(ApparatusType.HACKSQUATMACHINE, hackSquat);
+        apparatusPerm.put(ApparatusType.LEGEXTENSIONMACHINE, legExtension);
+        apparatusPerm.put(ApparatusType.LEGCURLMACHINE, legCurl);
+        apparatusPerm.put(ApparatusType.LATPULLDOWNMACHINE, latPull);
+        apparatusPerm.put(ApparatusType.PECDECKMACHINE, pecDeck);
+        apparatusPerm.put(ApparatusType.CABLECROSSOVERMACHINE, cableCross);
 
         // Initialize rand
         rand = new Random();
 
         // Initialize clients --> used a HashSet bc you can't just use Set
         clients = new HashSet<Integer>();
+
+        // Initialize executor
+        executor = Executors.newFixedThreadPool(GYM_SIZE); 
+
 
     }
 
