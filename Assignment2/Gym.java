@@ -42,9 +42,7 @@ public class Gym implements Runnable {
 
     // Semaphores
     // One for access to each plate size
-    public Semaphore grabSmall = new Semaphore(1);
-    public Semaphore grabMedium = new Semaphore(1);
-    public Semaphore grabLarge = new Semaphore(1);
+    public Semaphore grabWeight = new Semaphore(1);
     // One for the amount of each plate size
     public Semaphore amtSmall = new Semaphore(noOfWeightPlates.get(WeightPlateSize.SMALL_3KG));
     public Semaphore amtMedium = new Semaphore(noOfWeightPlates.get(WeightPlateSize.MEDIUM_5KG));
@@ -102,11 +100,38 @@ public class Gym implements Runnable {
                 public void run() {
                     for (Exercise ex : client.routineGetter()) {
                         try {
-                            // Get the weights we need
+                            // Get permissions to start
+                            grabWeight.acquire();
+                            // Get permission to use machine
+                            apparatusPerm.get(ex.apparatusGetter()).acquire();
+                            // Get permission to get weights, first get weight amts
+                            Map<WeightPlateSize,Integer> amtOfWeights = ex.weightGetter();
+                            // Grab small weights
+                            amtSmall.acquire(amtOfWeights.get(WeightPlateSize.SMALL_3KG));
+                            // Grab medium weights
+                            amtMedium.acquire(amtOfWeights.get(WeightPlateSize.MEDIUM_5KG));
+                            // Grab large weights
+                            amtLarge.acquire(amtOfWeights.get(WeightPlateSize.LARGE_10KG));
+                            // Print acquire statement
+
+                            // Stop grabbing weights
+                            grabWeight.release();
+                            // Print exercise statement
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        // release weights
+                        // Put back weights
+                        // Small Weights
+                        amtSmall.release(amtOfWeights.get(WeightPlateSize.SMALL_3KG));
+                        // Medium weights
+                        amtMedium.release(amtOfWeights.get(WeightPlateSize.MEDIUM_5KG));
+                        // Large weights
+                        amtLarge.release(amtOfWeights.get(WeightPlateSize.LARGE_10KG));
+                        // Release machine
+                        apparatusPerm.get(ex.apparatusGetter()).release();
+                        // Print release statement
+                        
                     }
                 }
             });
@@ -115,5 +140,4 @@ public class Gym implements Runnable {
         executor.shutdown();
     }
 
-    // See big paragraph on pg. 4
 }

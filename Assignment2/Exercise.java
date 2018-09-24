@@ -16,11 +16,22 @@ public class Exercise {
     private Map<WeightPlateSize,Integer> weight; // Amount of how many of each weight you're using
     private int duration;
     private static Random rand = new Random();
-       
+      
+    // Exercise constructor
     public Exercise(ApparatusType at, Map<WeightPlateSize,Integer> weight, int duration) {
 	    this.at = at;
 	    this.weight = weight;
 	    this.duration = duration;
+    }
+
+    // Apparatus getter
+    public ApparatusType apparatusGetter() {
+        return at;
+    }
+
+    // Weight getter
+    public Map<WeightPlateSize,Integer> weightGetter() {
+        return weight;
     }
 
     public static Exercise generateRandom(Map<WeightPlateSize,Integer> weight) {
