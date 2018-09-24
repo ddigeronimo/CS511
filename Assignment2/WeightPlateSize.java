@@ -4,7 +4,7 @@
  * I pledge my honor that I have abided by the Stevens Honor System
  */
 
-package CS511.Assignment2;
+package Assignment2;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +18,9 @@ public enum WeightPlateSize {
 
     // Method for choosing a random apparatus type
     // NOTE: This method was found on Stack Overflow
-    private List<WeightPlateSize> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
-    private int SIZE = VALUES.size();
-    private Random rand = new Random();
+    private static final List<WeightPlateSize> VALUES = Collections.unmodifiableList(Arrays.asList(values()));
+    private static final int SIZE = VALUES.size();
+    private static final Random rand = new Random();
 
     public WeightPlateSize randomWeightPlateSize() {
         return VALUES.get(rand.nextInt(SIZE));

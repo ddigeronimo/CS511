@@ -4,7 +4,7 @@
  * I pledge my honor that I have abided by the Stevens Honor System
  */
 
-package CS511.Assignment2;
+package Assignment2;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Random;
 public class Exercise {
 
     private ApparatusType at;
-    private Map<WeightPlateSize,Integer> weight; // Amount of how many of each weight you're using
+    private Map<WeightPlateSize,Integer> weight;
     private int duration;
     private static Random rand = new Random();
       
@@ -33,10 +33,16 @@ public class Exercise {
     public Map<WeightPlateSize,Integer> weightGetter() {
         return weight;
     }
+    
+    // Duration getter
+    public int durationGetter() {
+    	return duration;
+    }
 
+    // Generate a random exercise
     public static Exercise generateRandom(Map<WeightPlateSize,Integer> weight) {
         // First, generate a random apparatus type
-        ApparatusType a = ApparatusType.randomApparatus();
+        ApparatusType a = ApparatusType.randomApparatusType();
         // Then, generate a random duration, between 1 and 10 (+1 ensures no 0, but max must be one less than desired)
         int randDuration = rand.nextInt(9) + 1;
         // Finally, return a new exercise with these values and weight
