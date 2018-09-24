@@ -4,7 +4,7 @@
  * I pledge my honor that I have abided by the Stevens Honor System
  */
 
-package Assignment2;
+package CS511.Assignment2;
 
 import java.util.Map;
 import java.util.HashMap;

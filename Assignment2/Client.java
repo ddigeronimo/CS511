@@ -4,9 +4,10 @@
  * I pledge my honor that I have abided by the Stevens Honor System
  */
 
-package Assignment2;
+package CS511.Assignment2;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Map;
 import java.util.HashMap;
@@ -19,11 +20,11 @@ public class Client {
     // Constructor for Client
     public Client(int id) {
 	    this.id = id; 
-	    this.routine = new List<Exercise>(); 
+	    this.routine = new ArrayList<Exercise>(); 
     }
 
     // Get the Client's routine
-    public routineGetter() {
+    public List<Exercise> routineGetter() {
         return routine;
     }
 
@@ -51,4 +52,5 @@ public class Client {
     public static Client generateRandom(int id) {
         return generateRandom(id, Gym.numPlateGetter());
     }
+
 }

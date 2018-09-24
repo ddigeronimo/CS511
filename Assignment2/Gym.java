@@ -4,7 +4,7 @@
  * I pledge my honor that I have abided by the Stevens Honor System
  */
 
-package Assignment2;
+package CS511.Assignment2;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class Gym implements Runnable {
     private Map<ApparatusType, Semaphore> apparatusPerm;
 
     // For generating fresh client ids
-    private Set<Integer> clients; 
+    private Set<Client> clients; 
 
     // For generating random numbers
     private Random rand;
@@ -80,9 +80,9 @@ public class Gym implements Runnable {
         rand = new Random();
 
         // Initialize and fill clients --> used a HashSet bc you can't just use Set
-        clients = new HashSet<Integer>();
-        for (int i = 0; i < GYM_REGISTERED_CLIENTS; i++) {
-            clients.add(Client.generateRandom(id, noOfWeightPlates));
+        clients = new HashSet<Client>();
+        for (int i = 1; i < GYM_REGISTERED_CLIENTS; i++) {
+            clients.add(Client.generateRandom(i));
         }
 
         // Initialize executor
@@ -95,23 +95,24 @@ public class Gym implements Runnable {
     */
     public void run() {
         for (Client c: clients) {
-            Client current = c;
+            final Client current = c;
             executor.execute(new Runnable() {
                 public void run() {
-                    for (Exercise ex : client.routineGetter()) {
+                    for (Exercise ex : current.routineGetter()) {
+                    	//Map<WeightPlateSize,Integer> amtOfWeights = ex.weightGetter();
                         try {
                             // Get permissions to start
                             grabWeight.acquire();
                             // Get permission to use machine
                             apparatusPerm.get(ex.apparatusGetter()).acquire();
                             // Get permission to get weights, first get weight amts
-                            Map<WeightPlateSize,Integer> amtOfWeights = ex.weightGetter();
+                            
                             // Grab small weights
-                            amtSmall.acquire(amtOfWeights.get(WeightPlateSize.SMALL_3KG));
+                            amtSmall.acquire(ex.weightGetter().get(WeightPlateSize.SMALL_3KG));
                             // Grab medium weights
-                            amtMedium.acquire(amtOfWeights.get(WeightPlateSize.MEDIUM_5KG));
+                            amtMedium.acquire(ex.weightGetter().get(WeightPlateSize.MEDIUM_5KG));
                             // Grab large weights
-                            amtLarge.acquire(amtOfWeights.get(WeightPlateSize.LARGE_10KG));
+                            amtLarge.acquire(ex.weightGetter().get(WeightPlateSize.LARGE_10KG));
                             // Print acquire statement
 
                             // Stop grabbing weights
@@ -123,11 +124,11 @@ public class Gym implements Runnable {
                         }
                         // Put back weights
                         // Small Weights
-                        amtSmall.release(amtOfWeights.get(WeightPlateSize.SMALL_3KG));
+                        amtSmall.release(ex.weightGetter().get(WeightPlateSize.SMALL_3KG));
                         // Medium weights
-                        amtMedium.release(amtOfWeights.get(WeightPlateSize.MEDIUM_5KG));
+                        amtMedium.release(ex.weightGetter().get(WeightPlateSize.MEDIUM_5KG));
                         // Large weights
-                        amtLarge.release(amtOfWeights.get(WeightPlateSize.LARGE_10KG));
+                        amtLarge.release(ex.weightGetter().get(WeightPlateSize.LARGE_10KG));
                         // Release machine
                         apparatusPerm.get(ex.apparatusGetter()).release();
                         // Print release statement
