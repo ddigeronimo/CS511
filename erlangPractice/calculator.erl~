@@ -1,0 +1,31 @@
+-module(calculator).
+-compile(export_all).
+-author("Dylan").
+
+-type expr() :: {var, string()}
+		| {const, number()}
+		| {add, expr(), expr()}
+		| {sub, expr(), expr()}
+		| {mul, expr(), expr()}
+		| {divi, expr(), expr()}.
+
+-spec calc(expr()) -> number().
+
+calc({const,N} ->
+	    N.
+
+
+
+%% calc(var,str) ->
+%%     Expression;
+%% calc(const,int) ->
+%%     Expression;
+%% calc(add, exp, exp) ->
+%%     Expression;
+%% calc(sub, exp, exp) ->
+%%     Expression;
+%% calc(mul, exp, exp) ->
+%%     Expression;
+%% calc(divi, exp, exp) ->
+%%     Expression.
+
