@@ -1,0 +1,31 @@
+-module(quiz6).
+-compile(export_all).
+-author("Dylan DiGeronimo and Ryan Locke").
+
+-type btree() :: {empty}
+		 | {node, integer, btree(), btree()}.
+
+%% -spec isComplete(btree()) -> boolean().
+
+hasNoNodes({empty}) ->
+    true;
+hasNoNodes({node, integer, empty, empty}) ->
+    true;
+hasNoNodes(_) ->
+    false.
+
+
+isComplete({empty}) -> 
+    true;
+isComplete({node, integer, empty, empty}) ->
+    true;
+isComplete({node, integer, B1, empty}) ->
+    hasNoNodes(B1);
+isComplete({node, integer, empty, B2}) ->
+    false;
+isComplete({node, integer, B1, B2}) ->
+    isComplete(B1) and isComplete(B2).
+
+
+
+    
