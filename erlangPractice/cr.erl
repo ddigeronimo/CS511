@@ -1,4 +1,4 @@
-%% Exercise implementing a music crtiic system.
+%% Exercise implementing a music critic system.
 
 -module(cr).
 -compile(export_all).
