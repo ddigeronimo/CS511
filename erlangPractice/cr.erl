@@ -28,7 +28,7 @@ judge(Pid , Band , Album) ->
 	    Criticism
     end.
 
-critic () ->
+critic() ->
     receive
 	{From, Ref, {"Rage  Against  the  Turing  Machine", "Unit  Testify"}} ->
 	    From ! {Ref, "They  are  great!"};
