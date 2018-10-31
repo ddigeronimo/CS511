@@ -1,0 +1,2 @@
+-module(watcher).
+-compile(export_all).
