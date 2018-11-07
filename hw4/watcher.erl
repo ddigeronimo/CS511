@@ -12,33 +12,25 @@ start() ->
 	    setup_loop(N, Num_watchers)
 end.
 
-% Creates a watcher and spawns it's sensors
-createWatcher(Watchers, Current) ->
-    error(notImplemented).
-
-% Spawns sensors
-createSensors(0, _Current, Pids) ->
-    % 0 sensors left, return pid list
-    Pids;
-createSensors(N, Current, Pids) ->
-    % Create a new sensor using spawn_monitor
-    {Pid, _} = spawn_monitor(sensor, sensor, [self(), Current]),
-    % Recurse and add the newest pid and it's number to the pid list
-    createSensors(N-1, Current+1, lists:append(Pids, [{Current, Pid}])).
-
-
 % Creates N sensors and Num_watchers watchers 
 setup_loop(N, Num_watchers) ->
+    % Create watchers first (watch), then sensors, even though the watchers need a list of sensors
     error(doThis).
 
 
 % Main logic of watcher, takes in ID of watcher and list of Pids created by createWatcher()
-watcherMain(ID, Pids) ->
+watch(ID, Pids) ->
     receive
-	{ID, "anamalous_reading"} ->
-
+	{'DOWN', _, process, Pid2, Reason} ->
+	    % TODO: Iterate through pids, find Pid2, remove it, replace it
+	    % TODO: Implement replacement sensor
+	    io:fwrite("Sensor ~p crashed, because of ~p.~n", [Pid2, Reason]);
+	    % Print list of Pids
+	{SID, Measurement} ->
+	    % Print "Sensor _ reported measurement: Measurement"
+	    io:fwrite("Sensor ~p reported measurement: ~p ~n", [SID, Measurement])
     end,
-    watcherMain(ID,_).
+    watcherMain(_, _).
 
 
     

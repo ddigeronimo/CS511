@@ -7,13 +7,10 @@ sensor(ID, Watcher) ->
     Measurement = rand:uniform(11),
     if Measurement == 11 ->
 	    % report "anomalous_reading" to watcher
-	    Watcher ! {ID, "anomalous_reading"},
 	    exit(anomalous_reading);
        Measurement < 11 ->
 	    % report measurement to watcher
 	    Watcher ! {ID, Measurement}
-		end, 
-    Sleep_time = rand:uniform(10000),
-    timer:sleep(Sleep_time),
+    end, 
+    timer:sleep(rand:uniform(10000)),
     sensor(ID, Watcher).
-	  
