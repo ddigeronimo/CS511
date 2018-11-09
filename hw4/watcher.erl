@@ -30,7 +30,7 @@ watch(ID, Pids) ->
 	    % Print "Sensor _ reported measurement: Measurement"
 	    io:fwrite("Sensor ~p reported measurement: ~p ~n", [SID, Measurement])
     end,
-    watcherMain(_, _).
+    watch(_, _).
 
 
     
