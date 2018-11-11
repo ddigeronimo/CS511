@@ -25,11 +25,12 @@ setup_loop(N, Num_watchers, Cur) ->
     % can pass them off to a watcher.
     % a sensor requires the pid of its watcher
     % Cur is the id of the latest sensor created, the 3rd argument in setup_loop
-    % TODO: Below this line, create a sensor list + watcher pair with create watcher
+    % TODO: Below this line, create a sensor list + watcher pair with create_watcher
+    create_watcher(lists:seq(Cur+1, Cur+11), []),
     % N = total number of sensors input by user.
     % sub 10 everytime because it is sent 10 sensor_ids every time
     % recursive call with parameters modified as described above here
-    error(doThis).
+    setup_loop(N-10, Num_watchers-1, Cur+11).
 
 -spec create_watcher(S_id_List :: list(), Sensor_List :: list()) -> pid().
 %creates a single watcher after accumulating <=10 sensors into a list
@@ -39,14 +40,14 @@ create_watcher([], Sensor_List) ->
     watcher:watch(Sensor_List); %TODO: watch also needs to take in ID
 create_watcher(S_id_List, Sensor_List) ->
     %get id for new sensor
-
+    T = hd(S_id_List),
     %spawn a new sensor, passing in self() as the watcher pid,
-
+    {S_Pid, _} = spawn_monitor(sensor, sensor, self()), 
     %because in the base case of fn, we have a call to an actual watcher
-
+    
     %generate next sensor, accumulate new sensor object into list
 
-    create_watcher(T, Sensor_List++[{Cur, S_Pid}]).
+    create_watcher(T, Sensor_List ++ [{Cur, S_Pid}]).
 
 
 
@@ -57,7 +58,7 @@ watch(ID, Pids) ->
 	    % TODO: Iterate through pids, find Pid2, remove it, replace it
 	    % TODO: Implement replacement sensor
 	    io:fwrite("Sensor ~p crashed, because of ~p.~n", [Pid2, Reason]);
-	    % Print list of Pids
+	    % TODO: Print list of Pids
 	{SID, Measurement} ->
 	    io:fwrite("Sensor ~p reported measurement: ~p ~n", [SID, Measurement])
     end,
@@ -72,8 +73,8 @@ watch(ID, Pids) ->
 % <= 10 sensor_ids
 % A typical argument set to create_watcher is shown below,
 % where the first argument is the sensor id's we will make, given by
-%setup_loop at lists:seq(begin, end) and the second argument is an empty
-%list into which we accumulate the list of {Sensor_id, Sensor_pid} tuples
+% setup_loop at lists:seq(begin, end) and the second argument is an empty
+% list into which we accumulate the list of {Sensor_id, Sensor_pid} tuples
 % to send to a single watcher
 % [[0,1,2,3,4,5,6,7,8,9],[]) //line 30 -> line 38
 % [[1,2,3,4,5,6,7,8,9],[{0,<0.69.0>}]] //line 43 gets current and pid
