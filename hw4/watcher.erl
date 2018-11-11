@@ -27,10 +27,9 @@ watch(ID, Pids) ->
 	    io:fwrite("Sensor ~p crashed, because of ~p.~n", [Pid2, Reason]);
 	    % Print list of Pids
 	{SID, Measurement} ->
-	    % Print "Sensor _ reported measurement: Measurement"
 	    io:fwrite("Sensor ~p reported measurement: ~p ~n", [SID, Measurement])
     end,
-    watch(_, _).
+    watch(ID, Pids).
 
 
     
