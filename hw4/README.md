@@ -1,4 +1,4 @@
-To start this code:
+## To start this code:
 
 ~ erlc sensor.erl watcher.erl && erl
 
