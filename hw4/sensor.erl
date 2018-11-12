@@ -1,6 +1,8 @@
 %% Models a sensor process
 -module(sensor).
+-export([sensor/2]).
 -author("Dylan DiGeronimo and Ryan Locke").
+% I pledge my honor that I have abided by the Stevens Honor System.
 
 sensor(ID, Watcher) ->
     Measurement = rand:uniform(11),
