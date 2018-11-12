@@ -77,8 +77,8 @@ watch(Pids) ->
 % setup_loop at lists:seq(begin, end) and the second argument is an empty
 % list into which we accumulate the list of {Sensor_id, Sensor_pid} tuples
 % to send to a single watcher
-% [[0,1,2,3,4,5,6,7,8,9],[]) //line 30 -> line 38
-% [[1,2,3,4,5,6,7,8,9],[{0,<0.69.0>}]] //line 43 gets current and pid
+% [[0,1,2,3,4,5,6,7,8,9],[])
+% [[1,2,3,4,5,6,7,8,9],[{0,<0.69.0>}]]
 % [[2,3,4,5,6,7,8,9], [{0,<0.69.0}, {1,<0.79.2>}, ]]
 % ...
 % [[], [{0,<0.69.0>},...,{9,<0.102.2>}]]-
