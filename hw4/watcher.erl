@@ -1,7 +1,7 @@
 %% Models watcher processes
 -module(watcher).
--author("Dylan DiGeronimo and Ryan Locke")
--compile(export_all).
+-export([start/0]).
+-author("Dylan DiGeronimo and Ryan Locke").
 
 -spec start() -> no_return().
 start() ->
@@ -16,17 +16,15 @@ end.
 -spec setup_loop(N :: integer(), Num_watchers :: integer(), Cur :: integer()) -> pid().
 % Creates N sensors and Num_watchers watchers 
 setup_loop(N, 1, Cur) ->
-    % TODO: Associate the last N sensors + sensor id's with a watcher
-    error(doThis);
+    % Associate the last N sensors + sensor id's with a watcher
+    spawn_monitor(watcher, create_watcher, [lists:seq(Cur, Cur+N), []]);
 setup_loop(N, Num_watchers, Cur) ->
     % N is the total number of sensors
     % Num_watchers is the number of watchers we need to spawn
-    % we need to accumulate 10 spawned sensors before we
-    % can pass them off to a watcher.
+    % we need to accumulate 10 spawned sensors before can pass them off to a watcher.
     % a sensor requires the pid of its watcher
     % Cur is the id of the latest sensor created, the 3rd argument in setup_loop
-    % TODO: Below this line, create a sensor list + watcher pair with create_watcher
-    spawn_monitor(watcher, create_watcher, [lists:seq(Cur+1, Cur+11), []]),
+    spawn_monitor(watcher, create_watcher, [lists:seq(Cur, Cur+10), []]),
     % N = total number of sensors input by user.
     % sub 10 everytime because it is sent 10 sensor_ids every time
     % recursive call with parameters modified as described above here
@@ -39,27 +37,28 @@ create_watcher([], Sensor_List) ->
     % Initiates receiving from a watcher
     watcher:watch(Sensor_List); %TODO: watch also needs to take in ID
 create_watcher(S_id_List, Sensor_List) ->
-    %get id for new sensor
+    % Get id for new sensor
     Cur = hd(S_id_List),
     T = tl(S_id_List),
-    %spawn a new sensor, passing in self() as the watcher pid,
+    % Spawn a new sensor, passing in self() as the watcher pid,
     {S_Pid, _} = spawn_monitor(sensor, sensor, self()), 
-    %because in the base case of fn, we have a call to an actual watcher
-    
-    %generate next sensor, accumulate new sensor object into list
-
+    % Because in the base case of fn, we have a call to an actual watcher
+    % Generate next sensor, accumulate new sensor object into list
     create_watcher(T, Sensor_List ++ [{Cur, S_Pid}]).
-
-
 
 % Main logic of watcher, takes in ID of watcher and list of Pids created by createWatcher()
 watch(ID, Pids) ->
     receive
-	{'DOWN', _, process, Pid2, Reason} ->
-	    % TODO: Iterate through pids, find Pid2, remove it, replace it
-	    % TODO: Implement replacement sensor
-	    io:fwrite("Sensor ~p crashed, because of ~p.~n", [Pid2, Reason]);
-	    % TODO: Print list of Pids
+	{'DOWN', _, process, Pid2, {SID, Reason}} ->
+	    io:fwrite("Sensor ~p died, reason: ~p.~n", [SID, Reason]),
+	    io:fwrite("Replacing sensor ~p with replacement sensor: ~n", [SID]),
+	    % Implement replacement sensor
+	    {S_Pid, _} = spawn_monitor(sensor, sensor, self()),
+	    % Create new pidlist with replacement snesor's pid
+	    NewPids = lists:keyreplace(Pid2, 1, Pids, {SID, S_Pid}),
+	    % Print list of Pids
+	    io:fwrite("~p ~n", [Pids]),
+	    watch(ID, NewPids);
 	{SID, Measurement} ->
 	    io:fwrite("Sensor ~p reported measurement: ~p ~n", [SID, Measurement])
     end,

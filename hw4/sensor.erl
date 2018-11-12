@@ -1,13 +1,12 @@
 %% Models a sensor process
 -module(sensor).
--author("Dylan DiGeronimo and Ryan Locke")
--compile(export_all).
+-author("Dylan DiGeronimo and Ryan Locke").
 
 sensor(ID, Watcher) ->
     Measurement = rand:uniform(11),
     if Measurement == 11 ->
 	    % report "anomalous_reading" to watcher
-	    exit(anomalous_reading);
+	    exit({ID, anomalous_reading});
        Measurement < 11 ->
 	    % report measurement to watcher
 	    Watcher ! {ID, Measurement}
