@@ -26,7 +26,7 @@ setup_loop(N, Num_watchers, Cur) ->
     % a sensor requires the pid of its watcher
     % Cur is the id of the latest sensor created, the 3rd argument in setup_loop
     % TODO: Below this line, create a sensor list + watcher pair with create_watcher
-    create_watcher(lists:seq(Cur+1, Cur+11), []),
+    spawn_monitor(watcher, create_watcher, [lists:seq(Cur+1, Cur+11), []]),
     % N = total number of sensors input by user.
     % sub 10 everytime because it is sent 10 sensor_ids every time
     % recursive call with parameters modified as described above here
@@ -40,7 +40,8 @@ create_watcher([], Sensor_List) ->
     watcher:watch(Sensor_List); %TODO: watch also needs to take in ID
 create_watcher(S_id_List, Sensor_List) ->
     %get id for new sensor
-    T = hd(S_id_List),
+    Cur = hd(S_id_List),
+    T = tl(S_id_List),
     %spawn a new sensor, passing in self() as the watcher pid,
     {S_Pid, _} = spawn_monitor(sensor, sensor, self()), 
     %because in the base case of fn, we have a call to an actual watcher
