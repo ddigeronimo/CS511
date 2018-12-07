@@ -1,0 +1,66 @@
+
+(Spin Version 6.4.6 -- 2 December 2016)
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (statement3)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 156 byte, depth reached 3, errors: 0
+        2 states, stored
+        1 states, matched
+        3 transitions (= stored+matched)
+        1 atomic steps
+hash conflicts:         0 (resolved)
+
+Stats on memory usage (in Megabytes):
+    0.000	equivalent memory usage for states (stored*(State-vector + overhead))
+    0.283	actual memory usage for states
+  128.000	memory used for hash table (-w24)
+    0.534	memory used for DFS stack (-m10000)
+  128.730	total actual memory usage
+
+
+unreached in proctype nnode
+	dkr-lea-ltl-3.pml:22, state 1, "printf('MSC: %d\n',mynumber)"
+	dkr-lea-ltl-3.pml:23, state 2, "out!one,mynumber"
+	dkr-lea-ltl-3.pml:30, state 6, "out!two,nr"
+	dkr-lea-ltl-3.pml:31, state 7, "neighbourR = nr"
+	dkr-lea-ltl-3.pml:33, state 9, "know_winner = 1"
+	dkr-lea-ltl-3.pml:34, state 10, "out!winner,nr"
+	dkr-lea-ltl-3.pml:29, state 11, "((nr!=maximum))"
+	dkr-lea-ltl-3.pml:29, state 11, "else"
+	dkr-lea-ltl-3.pml:37, state 14, "out!one,nr"
+	dkr-lea-ltl-3.pml:27, state 15, "(Active)"
+	dkr-lea-ltl-3.pml:27, state 15, "else"
+	dkr-lea-ltl-3.pml:46, state 21, "out!one,neighbourR"
+	dkr-lea-ltl-3.pml:48, state 23, "Active = 0"
+	dkr-lea-ltl-3.pml:44, state 24, "(((neighbourR>nr)&&(neighbourR>maximum)))"
+	dkr-lea-ltl-3.pml:44, state 24, "else"
+	dkr-lea-ltl-3.pml:51, state 27, "out!two,nr"
+	dkr-lea-ltl-3.pml:42, state 28, "(Active)"
+	dkr-lea-ltl-3.pml:42, state 28, "else"
+	dkr-lea-ltl-3.pml:59, state 34, "printf('MSC: LEADER\n')"
+	dkr-lea-ltl-3.pml:60, state 35, "nr_leaders = (nr_leaders+1)"
+	dkr-lea-ltl-3.pml:56, state 36, "((nr!=mynumber))"
+	dkr-lea-ltl-3.pml:56, state 36, "else"
+	dkr-lea-ltl-3.pml:65, state 40, "out!winner,nr"
+	dkr-lea-ltl-3.pml:64, state 41, "(know_winner)"
+	dkr-lea-ltl-3.pml:64, state 41, "else"
+	dkr-lea-ltl-3.pml:25, state 44, "inp?one,nr"
+	dkr-lea-ltl-3.pml:25, state 44, "inp?two,nr"
+	dkr-lea-ltl-3.pml:25, state 44, "inp?winner,nr"
+	dkr-lea-ltl-3.pml:70, state 47, "-end-"
+	(21 of 47 states)
+unreached in init
+	dkr-lea-ltl-3.pml:96, state 25, "(run nnode(q[(proc-1)],q[(proc%5)],Ini[(proc-1)]))"
+	dkr-lea-ltl-3.pml:97, state 26, "proc = (proc+1)"
+	dkr-lea-ltl-3.pml:102, state 33, "-end-"
+	(3 of 33 states)
+unreached in claim statement3
+	_spin_nvr.tmp:8, state 10, "-end-"
+	(1 of 10 states)
+
+pan: elapsed time 0 seconds

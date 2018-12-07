@@ -1,10 +1,10 @@
 %% Barrier syncronization exercise
-
 -module(b).
 -compile(export_all).
 
 startb(N) ->
-    Pid = spawn(fun() -> coordinator(N, N, []) end), %% we utilize a copy of N to serve as a decrementing counter
+    % Utilize a copy of N to serve as a decrementing counter
+    Pid = spawn(fun() -> coordinator(N, N, []) end),
     register(coordinator,Pid).
 
 start() ->
@@ -22,7 +22,8 @@ coordinator(0, N, L) -> % All threads in, notify
 coordinator(M, N, L) when M > 0 -> % Waiting for more threads
     receive
 	{From, Ref, arrived} ->
-	    % Recursively call coordinator, decrementing the remaining number of threads and adding the current one to the list
+	    % Recursively call coordinator, decrementing the 
+	    % remaining number of threads and adding the current one to the list
 	     coordinator(M-1, N, [ {From, Ref} | L])
     end.
 
